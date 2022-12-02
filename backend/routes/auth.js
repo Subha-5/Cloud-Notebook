@@ -19,10 +19,12 @@ router.post('/createuser',
         body('password', 'Password must be atleast 5 characters.').isLength({ min: 5 })
     ],
     async (req, res) => {
+        let success = false
         // If there are errors, return Bad request and the errors
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            success = false
+            return res.status(400).json({ success, errors: errors.array() });
         }
         /* const user = User(req.body)
         user.save() */
@@ -30,7 +32,8 @@ router.post('/createuser',
         try {
             let user = await User.findOne({ email: req.body.email })
             if (user) {
-                return res.status(400).json({ error: "Sorry a user with this email already exists." })
+                success = false
+                return res.status(400).json({ success, error: "Sorry a user with this email already exists." })
             }
             const salt = await bcrypt.genSalt(10)
             const secPass = await bcrypt.hash(req.body.password, salt)
@@ -60,7 +63,8 @@ router.post('/createuser',
             }
             const authToken = jwt.sign(data, secret)
             // console.log(authToken)
-            res.json({ authToken: authToken })
+            success = true
+            res.json({ success, authToken: authToken })
         }
         // catching error if something unexpected occurs
         catch (error) {
@@ -75,9 +79,10 @@ router.post('/login', [
     body('password', 'Password cannot be blank.').exists(),
 ], async (req, res) => {
     // If there are errors, return Bad request and the errors
+    let success = false
     const errors = validationResult(req);
     if (!errors) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ success, errors: errors.array() });
     }
     // When proper email and passwords are provided by the user
     const { email, password } = req.body;
@@ -85,13 +90,15 @@ router.post('/login', [
         let user = await User.findOne({ email: email })
         // in case, user does not exists in database
         if (!user) {
-            return res.status(400).json({ error: "Please try to login with correct credentials" })
+            success = false
+            return res.status(400).json({ success, error: "Please try to login with correct credentials" })
         }
         // in case, user exists on database
         const passwordCompare = await bcrypt.compare(password, user.password);
         // password does not match
         if (!passwordCompare) {
-            return res.status(400).json({ error: "Please try to login with correct credentials" })
+            success = false
+            return res.status(400).json({ success, error: "Please try to login with correct credentials" })
         }
         // password matches and email found
         const data = {
@@ -100,7 +107,8 @@ router.post('/login', [
             }
         }
         const authToken = jwt.sign(data, secret)
-        res.json({ authToken })
+        success = true
+        res.json({ success, authToken })
 
     } catch (error) {
         console.error(error.message)

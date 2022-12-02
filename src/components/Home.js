@@ -1,9 +1,16 @@
-import React from 'react'
+import Notes from './Notes';
 
-export const Home = () => {
+export default function Home (props) {
+  const {showAlert} = props
   return (
-    <div>
-        <h1>This is iNotebook</h1>
-    </div>
+    <>
+      <div className='container my-3'>
+        <h1>This is iNotebook - your secured notebook in the cloud</h1>
+
+        <Notes showAlert={showAlert}/>
+        
+      </div>
+
+    </>
   )
 }
