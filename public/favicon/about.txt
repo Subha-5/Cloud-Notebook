@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Edu SA Beginner
+- Font Author: Copyright 2022 The AU School Handwriting Fonts Project Authors (https://github.com/MezMerrit/AU-School-Handwriting-Fonts)
+- Font Source: http://fonts.gstatic.com/s/edusabeginner/v3/rnC_-xRb1x-1lHXnLaZZ2xOoLIGfU3L82irpr_3C9989fo1yBydUEDs.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
