@@ -11,7 +11,7 @@ const Login = (props) => {
         e.preventDefault()
         const response = await fetch(
             // "http://localhost:5000/api/auth/login",
-            process.env.SERVER + "/api/auth/login",
+            "https://cloud-notebook-seven.vercel.app" + "/api/auth/login",
             {
                 method: 'POST',
                 headers: {
