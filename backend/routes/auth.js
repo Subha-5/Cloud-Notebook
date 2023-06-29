@@ -86,8 +86,10 @@ router.post('/login', [
     }
     // When proper email and passwords are provided by the user
     const { email, password } = req.body;
+    console.log('REQ-BODY', req.body);
     try {
         let user = await User.findOne({ email: email })
+        console.log('USER', user)
         // in case, user does not exists in database
         if (!user) {
             success = false
@@ -98,6 +100,7 @@ router.post('/login', [
         // password does not match
         if (!passwordCompare) {
             success = false
+            console.log('PASSWORD-COMPARE:', passwordCompare);  
             return res.status(400).json({ success, error: "Please try to login with correct credentials" })
         }
         // password matches and email found
