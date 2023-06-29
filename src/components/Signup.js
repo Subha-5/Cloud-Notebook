@@ -18,7 +18,8 @@ const Signup = (props) => {
     e.preventDefault()
     const { name, email, password } = credentials
     const response = await fetch(
-      "http://localhost:5000/api/auth/createuser",
+      // "http://localhost:5000/api/auth/createuser",
+      process.env.SERVER + "/api/auth/createuser",
       {
         method: 'POST',
         headers: {
@@ -58,12 +59,12 @@ const Signup = (props) => {
           <div className="mb-3">
             <label htmlFor="password" className="form-label">Your Password</label>
             <input type="password" className="form-control" id="password" name="password" value={credentials.password} onChange={onChange} required minLength={5} />
-            {/* <div id="name" className="form-text"style={{color: 'red'}}>{(credentials.password.length===0 && 'Enter a password') || (credentials.password.length < 5 && 'Password must be atleast 5 characters long.')}</div> */}
+            <div id="name" className="form-text"style={{color: 'red'}}>{(credentials.password.length===0 && 'Enter a password') || (credentials.password.length < 5 && 'Password must be atleast 5 characters long.')}</div>
           </div>
           <div className="mb-3">
             <label htmlFor="cpassword" className="form-label">Confirm Password</label>
             <input type="password" className="form-control" id="cpassword" name="cpassword" value={credentials.cpassword} onChange={onChange} required minLength={5} />
-            {/* {credentials.password !== credentials.cpassword && <div id="name" className="form-text" style={{color: 'red'}}>Passwords do not match</div>} */}
+            {credentials.password !== credentials.cpassword && <div id="name" className="form-text" style={{color: 'red'}}>Passwords do not match</div>}
           </div>
           <button type="submit" className="btn btn-primary" disabled={credentials.password.length < 5 || credentials.password.length < 5 || credentials.password !== credentials.cpassword}>Sign up</button>
         </form>

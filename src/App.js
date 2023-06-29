@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
+
 import './App.css';
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
