@@ -2,7 +2,7 @@ export default function About () {
 
   return (
     <div>
-      This is About page
+      <h1>iNotebook</h1>
     </div>
   )
 }
